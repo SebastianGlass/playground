@@ -16,7 +16,6 @@ export class ContentLoader {
         })
       )
     ).reduce((a, b) => ({ ...a, ...b }), {});
-    console.log(resolvedTemplates);
     this.createIfNotSet("playground/blog-templates", resolvedTemplates);
   }
 

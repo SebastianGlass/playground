@@ -1,6 +1,6 @@
-import { BlogEntryPage } from "./blog-entry-page.js";
-import { ContentLoader } from "./content-loader.js";
-import { OverviewPage } from "./overview-page.js";
+import { BlogEntryPage } from "./pages/blog-entry-page/blog-entry-page.js";
+import { ContentLoader } from "./util/content-loader.js";
+import { OverviewPage } from "./pages/overview-page/overview-page.js";
 const paths = [];
 async function gotoPage(page) {
   const target = paths.find((p) => new RegExp(`^${p.path}$`).test(page));

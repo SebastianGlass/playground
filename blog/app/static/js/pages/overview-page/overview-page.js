@@ -1,8 +1,12 @@
+import { TemplateEngine } from "../../util/template-engine.js";
+
 export class OverviewPage {
   constructor() {}
 
   async load() {
-    const fetched = await fetch("/static/pages/overview.html");
+    const fetched = await fetch(
+      "/static/js/pages/overview-page/overview-page.html"
+    );
     this.html = await fetched.text();
   }
   render() {
@@ -18,12 +22,13 @@ export class OverviewPage {
     );
     for (let i = 0; i < max; i++) {
       const blogEntry = blogEntries[i];
-      const t = beTemplate
-        .replace("{{title}}", blogEntry.title)
-        .replace("{{description}}", blogEntry.description)
-        .replace("{{id}}", blogEntry.id);
+      const t = TemplateEngine.replacePlaceholderWithContent(
+        beTemplate,
+        blogEntry
+      );
       bePlaceholder.insertAdjacentHTML("beforeend", t);
     }
+    document.title = "Playground-Blog";
   }
 
   get blogEntries() {
