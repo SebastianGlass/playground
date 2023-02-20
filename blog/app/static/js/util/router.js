@@ -10,12 +10,14 @@ const routes = [
 export class Router {
   static INSTANCE;
   constructor() {
-    this.baseUrl = window.location.pathname;
+    this.baseUrl = window.location.pathname.replace('#', '');
+    console.log(this.baseUrl + ' set as baseUrl');
     this.updateLinks('body');
     Router.INSTANCE = this;
   }
   async gotoPage(page) {
-    const target = routes.find(p => new RegExp(`^${p.path}$`).test(page));
+    console.info(`[Playground-Blog]:goto request for ${page}`);
+    const target = routes.find(p => new RegExp(`^${p.path}$`).test(page.replace('#', '')));
     if (target) {
       if (!target._page) {
         console.info(`[Playground-Blog]: loading page with route ${target.path}`);
@@ -24,7 +26,7 @@ export class Router {
       } else {
         console.info(`[Playground-Blog]: reuse page with route ${target.path}`);
       }
-      window.history.pushState('', '', this.baseUrl + page);
+      window.history.pushState('', '', this.baseUrl + '#' + page);
       target._page.render();
       this.updateLinks('main');
     } else {
@@ -44,6 +46,7 @@ export class Router {
         while (!target.href) {
           target = target.parentNode;
         }
+
         const url = target.href.replace(window.location.protocol + '//' + window.location.host + '/', '');
 
         this.gotoPage(url);

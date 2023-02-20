@@ -11,7 +11,7 @@ export class BlogEntryPage {
 
   render() {
     document.querySelector('main').innerHTML = this.html;
-    const entryId = window.location.pathname.match('/articles/(.*)')[1];
+    const entryId = window.location.hash.match('articles/(.*)')[1];
 
     const blogEntry = new BlogEntryService().getById(entryId);
     const beTemplate = JSON.parse(localStorage.getItem('playground/blog-templates'))['blogentry'];
