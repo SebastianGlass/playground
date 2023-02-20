@@ -5,7 +5,7 @@ async function main() {
   const loader = new ContentLoader();
   await Promise.all([loader.initBlogEntries(), loader.initTemplates()]);
 
-  new Router().gotoPage(window.location.pathname);
+  new Router().gotoPage('');
 }
 
 main();

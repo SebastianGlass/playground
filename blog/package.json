@@ -1,11 +1,8 @@
 {
   "name": "blog",
   "version": "1.0.0",
-  "description": "- Overview page:   - show blogposts (pagination + sorting) from local storage   - add new post - Blog Page:   - read full article   - edit",
-  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
     "format": "npm run format:html & npm run format:js",
     "format:html": "prettier --write \"app/**/*.html\"",
     "format:js": "prettier --write \"app/**/*.js\""
@@ -13,8 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
+  "devDependencies": {
     "prettier": "^2.8.4"
   }
 }

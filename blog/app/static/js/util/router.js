@@ -2,11 +2,12 @@ import { BlogEntryPage } from '../pages/blog-entry-page/blog-entry-page.js';
 import { OverviewPage } from '../pages/overview-page/overview-page.js';
 
 const routes = [
-  { path: '/', page: OverviewPage },
-  { path: '/articles/(.*)', page: BlogEntryPage },
+  { path: '', page: OverviewPage },
+  { path: 'articles/(.*)', page: BlogEntryPage },
 ];
 export class Router {
   constructor() {
+    this.baseUrl = window.location.pathname;
     this.updateLinks('body');
   }
   async gotoPage(page) {
@@ -19,14 +20,14 @@ export class Router {
       } else {
         console.info(`[Playground-Blog]: reuse page with route ${target.path}`);
       }
-      window.history.pushState('', '', page);
+      window.history.pushState('', '', this.baseUrl + page);
       target._page.render();
       this.updateLinks('main');
     } else {
       if (page.startsWith('http')) {
         window.location.href = page;
       } else {
-        console.error(`[Playground-Blog]: page with route ${target.path} not found`);
+        console.error(`[Playground-Blog]: page with route ${page} not found`);
       }
     }
   }
@@ -35,8 +36,7 @@ export class Router {
     document.querySelectorAll(prefix + ' a[href]').forEach(link =>
       link.addEventListener('click', e => {
         e.preventDefault();
-        const target = e.target.href.replace(window.location.protocol + '//' + window.location.host, '');
-        console.log(target);
+        const target = e.target.href.replace(window.location.protocol + '//' + window.location.host + '/', '');
         this.gotoPage(target);
       })
     );
