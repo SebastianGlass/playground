@@ -1,14 +1,18 @@
 import { BlogEntryPage } from '../pages/blog-entry-page/blog-entry-page.js';
+import { NewArticlePage } from '../pages/new-article-page/new-article-page.js';
 import { OverviewPage } from '../pages/overview-page/overview-page.js';
 
 const routes = [
   { path: '', page: OverviewPage },
   { path: 'articles/(.*)', page: BlogEntryPage },
+  { path: 'new-article', page: NewArticlePage },
 ];
 export class Router {
+  static INSTANCE;
   constructor() {
     this.baseUrl = window.location.pathname;
     this.updateLinks('body');
+    Router.INSTANCE = this;
   }
   async gotoPage(page) {
     const target = routes.find(p => new RegExp(`^${p.path}$`).test(page));
@@ -36,8 +40,13 @@ export class Router {
     document.querySelectorAll(prefix + ' a[href]').forEach(link =>
       link.addEventListener('click', e => {
         e.preventDefault();
-        const target = e.target.href.replace(window.location.protocol + '//' + window.location.host + '/', '');
-        this.gotoPage(target);
+        let target = e.target;
+        while (!target.href) {
+          target = target.parentNode;
+        }
+        const url = target.href.replace(window.location.protocol + '//' + window.location.host + '/', '');
+
+        this.gotoPage(url);
       })
     );
   }
