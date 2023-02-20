@@ -4,7 +4,7 @@ export class OverviewPage {
   constructor() {}
 
   async load() {
-    const fetched = await fetch('/static/js/pages/overview-page/overview-page.html');
+    const fetched = await fetch('./static/js/pages/overview-page/overview-page.html');
     this.html = await fetched.text();
   }
   render() {

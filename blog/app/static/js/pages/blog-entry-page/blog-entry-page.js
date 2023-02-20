@@ -5,7 +5,7 @@ export class BlogEntryPage {
   constructor() {}
 
   async load() {
-    const fetched = await fetch('/static/js/pages/blog-entry-page/blog-entry-page.html');
+    const fetched = await fetch('./static/js/pages/blog-entry-page/blog-entry-page.html');
     this.html = await fetched.text();
   }
 

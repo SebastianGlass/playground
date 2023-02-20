@@ -2,7 +2,7 @@ export class ContentLoader {
   templates = ['blogentry', 'blogentry-preview'];
 
   async initBlogEntries() {
-    const fetched = await fetch('/static/data/demo-entries.json');
+    const fetched = await fetch('./static/data/demo-entries.json');
     const json = await fetched.json();
     this.createIfNotSet('playground/blog-entries', json);
   }
@@ -10,7 +10,7 @@ export class ContentLoader {
     const resolvedTemplates = (
       await Promise.all(
         this.templates.map(async templateName => {
-          const fetched = await fetch(`/static/templates/${templateName}.html`);
+          const fetched = await fetch(`./static/templates/${templateName}.html`);
           const u = await fetched.text();
           return { [templateName]: u };
         })
